@@ -1,0 +1,52 @@
+<html>  
+<head>  
+    <title>Simple jsp page</title>  
+    <link type="text/css" href="res/js/jquery-ui-1.10.3.custom.css" rel="stylesheet" />  
+    <script type="text/javascript"  src="res/js/jquery-1.7.2.js"></script>  
+    <script type="text/javascript"  src="res/js/jquery.mousewheel.min.js"></script>  
+    <script type="text/javascript"  src="res/js/jquery-ui-1.10.3.custom.min.js"></script>  
+    <script type="text/javascript">  
+        $(document).ready(function(){  
+            var img=$("img");  
+            img.draggable()  
+            var slider = $( "<div id='slider'></div>" ).insertBefore( "#big" ).slider({  
+                min: img.height(),  
+                max: 800,  
+                range: "min",  
+                value: 1,  
+                slide: function( event, ui ) {  
+                    // alert(ui.value)  
+                    resizeImg("img",ui.value)  
+                    //select[ 0 ].selectedIndex = ui.value - 1;  
+                },  
+                change:function(event, ui){  
+                    resizeImg("img",ui.value)  
+                }  
+            });  
+            $('#big').bind('mousewheel', function(event, delta){  
+                var i=img.height();  
+  
+                if(delta>0){  
+                 //alert(i)  
+                    ii=i+10;  
+                    slider.slider( "value", i );  
+  
+                }else{  
+                    ii=i-10;  
+                    slider.slider( "value", i );  
+                }  
+  
+            });  
+            function resizeImg(node,value){  
+                $(node).height(value);  
+  
+            }  
+        })  
+    </script>  
+</head>  
+<body>  
+<div id="big" style="height:500px;overflow: hidden;width: 500px">  
+    <img src="2993668.jpg" style="cursor: move"/>  
+</div>  
+</body>  
+</html>

@@ -1,0 +1,119 @@
+<html xmlns:svg="http://www.w3.org/2000/svg">
+<head>
+	<!--[if lt IE 10]>
+		<script type="text/javascript" src="res/pie/PIE.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="res/jquery/jquery-1.7.2.js"></script>
+	<script type="text/javascript"  src="res/jquery/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript">
+		var lastX = -1;
+		var lastY = -1;
+		var positionX = 0;
+		var positionY = 0;
+		var imgWidth = 800;
+		var imgHeight = 600;
+		var imgSize = 100;
+		$(function() {
+			$("#map").mousedown(function(e) {
+				// 只接受左键拖动
+				if (e.which != 1) {
+					return;
+				}
+				$("body").mousemove(function(e) {
+					var deltaX = 0;
+					var deltaY = 0;
+					if (lastX < 0) {
+						deltaX = 0;
+					} else {
+						deltaX = e.pageX - lastX;
+					}
+					if (lastY < 0) {
+						deltaY = 0;
+					} else {
+						deltaY = e.pageY - lastY;
+					}
+					lastX = e.pageX;
+					lastY = e.pageY;
+					moveMap(positionX - deltaX, positionY - deltaY);
+				});
+				// 禁止文本可选
+				// ff
+				if (jQuery.browser.mozilla) {
+					$("body").css("-moz-user-select","none");
+				}
+				// ie等
+				else {
+					document.onselectstart = function() {
+						return false;
+					};
+				}
+			});
+			$("body").mouseup(function() {
+				lastX = -1;
+				lastY = -1;
+				$("body").unbind("mousemove");
+				// 文本可选
+				// ff
+				if (jQuery.browser.mozilla) {
+					$("body").css("-moz-user-select","-moz-all");
+				}
+				// ie等
+				else {
+					document.onselectstart = function() {
+						return true;
+					};
+				}
+			});
+			$("#map").mousewheel(function(event, delta) {
+				resizeMap(imgSize + delta * 10);
+				// 阻止body滚动
+				return false;
+			});
+		});
+		function resizeMap(newImgsize) {
+			var resize = true;
+			// 放大范围100-200
+			imgSize = newImgsize;
+			if (imgSize > 200) {
+				imgSize = 200;
+				resize = false;
+			}
+			if (imgSize < 100) {
+				imgSize = 100;
+				resize = false;
+			}
+			if (resize) {
+				$("#map").css("background-size", imgSize + "%");
+				// $("#map").animate({"background-size": imgSize + "%"},300,"swing");
+				moveMap(positionX * imgSize / 100, positionY * imgSize / 100);
+			}
+		}
+		function moveMap(newPositionX, newPositionY) {
+			positionX = newPositionX;
+			positionY = newPositionY;
+			// 约束图片边界
+			if (positionX < 0) {
+				positionX = 0;
+			}
+			if (positionY < 0) {
+				positionY = 0;
+			}
+			if (positionX > imgWidth * imgSize / 100 - 800) {
+				positionX = imgWidth * imgSize / 100 - 800;
+			}
+			if (positionY > imgHeight * imgSize / 100 - 600) {
+				positionY = imgHeight * imgSize / 100 - 600;
+			}
+			$("#position").text(positionX + " " + positionY + " " + imgSize +"%");
+			$("#map").css("background-position", (0 - positionX) + "px " + (0 - positionY) + "px");
+		}
+	</script>
+</head>
+<body>
+
+	<div id="map_content">
+		<div id="map" style="width: 800px; height: 600px; background: url('2993668.jpg');background-size: 100%; background-repeat: no-repeat; cursor: pointer; background-position: 0px 0px"></div>
+	</div>
+	<p id="position">0 0</p>
+</body>
+</html>

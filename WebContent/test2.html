@@ -1,0 +1,87 @@
+<html xmlns:svg="http://www.w3.org/2000/svg">
+<head>
+	<script type="text/javascript" src="res/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript">
+		var lastX = -1;
+		var lastY = -1;
+		var positionX = 0;
+		var positionY = 0;
+		var imgWidth = 3480;
+		var imgHeight = 2532;
+		$(function() {
+			$("#map").mousedown(function() {
+				$("body").mousemove(function(e) {
+					var deltaX = 0;
+					var deltaY = 0;
+					if (lastX < 0) {
+						deltaX = 0;
+					} else {
+						deltaX = e.pageX - lastX;
+					}
+					if (lastY < 0) {
+						deltaY = 0;
+					} else {
+						deltaY = e.pageY - lastY;
+					}
+					lastX = e.pageX;
+					lastY = e.pageY;
+					positionX = positionX - deltaX;
+					positionY = positionY - deltaY;
+					if (positionX < 0) {
+						positionX = 0;
+					}
+					if (positionY < 0) {
+						positionY = 0;
+					}
+					if (positionX > imgWidth - 800) {
+						positionX = imgWidth - 800;
+					}
+					if (positionY > imgHeight - 600) {
+						positionY = imgHeight - 600;
+					}
+					$("#position").text(positionX + " " + positionY);
+					$("#map_img").css("left", positionX + "px ");
+					$("#map_img").css("top", positionY + "px");
+				});
+				// 禁止文本可选
+				// ff
+				if (navigator.userAgent.indexOf("Firefox")>0) {
+					$("body").css("-moz-user-select","none");
+				}
+				// ie等
+				else {
+					document.onselectstart = function() {
+						return false;
+					};
+				}
+			});
+			$("body").mouseup(function() {
+				lastX = -1;
+				lastY = -1;
+				$("body").unbind("mousemove");
+				// 文本可选
+				// ff
+				if (navigator.userAgent.indexOf("Firefox")>0) {
+					$("body").css("-moz-user-select","-moz-all");
+				}
+				// ie等
+				else {
+					document.onselectstart = function() {
+						return true;
+					};
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+
+	<div id="map_content">
+		<div id="map" style="width: 800px; height: 600px; overflow: hidden;cursor: pointer; background-position: 0px 0px">
+			<img id="map_img" src="2993668.jpg" style="top:-100px; positon: absolute; display: block"/>
+			<div id="map_mask" style="positon: absolute; width: 100%; height: 100%; z-index: -1"></div>
+		</div>
+	</div>
+	<p id="position">0 0</p>
+</body>
+</html>
