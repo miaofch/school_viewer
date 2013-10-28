@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:svg="http://www.w3.org/2000/svg">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<title>郑州大学后勤绿化、保洁网格化管理系统</title>
+	<script type="text/javascript" src="res/jquery/jquery-1.7.2.js"></script>
+	<script type="text/javascript"  src="res/jquery/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(".list_li").mouseenter(function() {
+				$(this).css("font-weight", "bold");
+				$(this).css("background-color", "white");
+				$(this).css("color", "rgb(164, 201, 113)");
+			});
+			$(".list_li").mouseleave(function() {
+				$(this).css("font-weight", "normal");
+				$(this).css("color", "black");
+				$(this).css("background-color", "rgb(164, 201, 113)");
+			});
+		});
+		function linkTo(link) {
+			window.location.href = link;
+		}
+	</script>
+	<style type="text/css">
+		body {
+			font-size: 14px;
+		}
+		h1 {
+			font-size: 20px;
+			margin: 0px auto;
+			padding: 60px 0px 80px;
+		}
+		#content {
+			width: 600px;
+			height: 400px;
+			margin: 100px auto;
+			text-align: center;
+			background-color: rgb(164, 201, 113);
+		}
+		.list {
+			padding: 0px 0px 30px;
+			margin: 0;
+			list-style: none;
+		}
+		.list_title {
+			font-size: 16px;
+			border: none;
+			font-weight: bold;
+			color: white;
+		}
+		.list li {
+			display: inline;
+			padding: 10px 20px;
+		}
+		.list_li {
+			border: solid 1px white;
+			cursor: pointer;
+		}
+		#copyright {
+			margin-top: 50px;
+		}
+		#copyright p {
+			font-size: 12px;
+			margin: 0 auto;
+			padding: 2px 0px;
+		}
+	</style>
+</head>
+<body>
+	<div id="content">
+		<h1>郑州大学后勤绿化、保洁网格化管理系统</h1>
+		<ul class="list">
+			<li class="list_title">保洁</li>
+			<li class="list_li" onclick="linkTo('pages/map.html')">新校区</li>
+			<li class="list_li">南校区</li>
+			<li class="list_li">北校区</li>
+			<li class="list_li">东校区</li>
+		</ul>
+		<ul class="list">
+			<li class="list_title">绿化</li>
+			<li class="list_li">新校区</li>
+			<li class="list_li">南校区</li>
+			<li class="list_li">北校区</li>
+			<li class="list_li">东校区</li>
+		</ul>
+		<div id="copyright">
+			<p>郑州大学后勤集团地址：中国·河南·郑州市科学大道100号 邮编：450001</p>
+			<p>
+				电话：0371-67781300 传真：0371-67781333 邮箱：<a
+					href="mailto:hqjt@zzu.edu.cn">hqjt@zzu.edu.cn</a>
+			</p>
+			<p>郑州大学后勤集团综合办公室 版权所有&copy;2009&nbsp;|&nbsp;<a href="###">管理员入口</a></p>
+		</div>
+	</div>
+</body>
+</html>
